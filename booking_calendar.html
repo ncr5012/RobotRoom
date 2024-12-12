@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Booking Calendar - RobotRoom</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0; 
+    padding: 0;
+    background: #f9f9f9;
+  }
+
+  header {
+    background: #2c3e50;
+    color: #fff;
+    padding: 20px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo img {
+    width: 40px;
+    margin-right: 10px;
+  }
+
+  nav ul {
+    list-style: none;
+    float: right;
+    margin: 0;
+  }
+
+  nav ul li {
+    display: inline-block;
+    margin: 0 15px;
+  }
+
+  nav a {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  main {
+    padding: 20px;
+  }
+
+  h2 {
+    margin-top: 0;
+  }
+
+  .date-picker-section, .slots-section {
+    margin-bottom: 20px;
+  }
+
+  .date-picker-section label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .date-picker-section input {
+    padding: 5px;
+    font-size: 16px;
+  }
+
+  .slots-section h3 {
+    margin-top: 0;
+  }
+
+  .time-slots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .time-slot {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background 0.3s;
+  }
+
+  .time-slot img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .time-slot.available:hover {
+    background: #e0f7e9;
+  }
+
+  .time-slot.unavailable {
+    color: #888;
+    cursor: not-allowed;
+  }
+
+  .time-slot.selected {
+    border-color: #2ecc71;
+    background: #e0f7e9;
+  }
+
+  .booking-form {
+    margin-top: 20px;
+  }
+
+  .booking-form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .booking-form input, .booking-form select, .booking-form button {
+    padding: 10px;
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 300px;
+    font-size: 16px;
+  }
+
+  footer {
+    text-align: center;
+    padding: 15px;
+    background: #2c3e50;
+    color: #fff;
+  }
+</style>
+</head>
+<body>
+<header>
+  <nav>
+    <div class="container">
+      <h1><img src="images/icon.png" alt="Company Logo" style="height:150px; vertical-align:middle;"> Experiential Learning</h1>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="booking_signin.html">Book Now</a></li>
+    </ul>
+  </nav>
+</header>
+<main>
+  <h2>Choose Your Appointment Date & Time</h2>
+  <p>Our Grand Opening is on March 1, 2025! Unfortunately, March 1-3 are completely booked. Starting March 4, 2025, limited slots are available but are almost fully booked — 3 or 4 out of 5 spots remain in each time slot!</p>
+
+  <div class="date-picker-section">
+    <label for="appointment-date">Select a Date (March 2025):</label>
+    <!-- Set min to March 4, so March 1-3 cannot be chosen -->
+    <input type="date" id="appointment-date" min="2025-03-04" max="2025-03-31" value="2025-03-04"/>
+  </div>
+
+  <div class="slots-section">
+    <h3>Available Time Slots:</h3>
+    <p>Select a date to load the time slots. Times are limited!</p>
+    <div class="time-slots" id="time-slots"></div>
+  </div>
+
+  <form class="booking-form" action="booking_payment.html" method="get">
+    <label for="selected-date">Chosen Date:</label>
+    <input type="text" id="selected-date" name="date" readonly required/>
+
+    <label for="selected-time">Chosen Time Slot:</label>
+    <input type="text" id="selected-time" name="time" readonly required/>
+
+    <button type="submit">Book This Time</button>
+  </form>
+</main>
+<footer>
+  <p>© 2025 RobotRoom. All rights reserved.</p>
+</footer>
+
+<script>
+  const appointmentDateInput = document.getElementById('appointment-date');
+  const timeSlotsContainer = document.getElementById('time-slots');
+  const selectedDateField = document.getElementById('selected-date');
+  const selectedTimeField = document.getElementById('selected-time');
+
+  // Time slots
+  const timeSlots = ['10-11am', '11-12am', '1-2pm', '3-4pm'];
+
+  // On date change, load slots
+  appointmentDateInput.addEventListener('change', (e) => {
+    const selectedDate = e.target.value;
+    loadTimeSlots(selectedDate);
+  });
+
+  function loadTimeSlots(date) {
+    timeSlotsContainer.innerHTML = '';
+    if (!date) return;
+
+    const currentDate = new Date(date);
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth() + 1; // 1-based
+    const day = currentDate.getDate();
+
+    let slotData;
+    if (year === 2025 && month === 3) {
+      if (day >= 1 && day <= 3) {
+        // Fully booked (though we won't let user select these in the date picker)
+        slotData = timeSlots.map(time => ({time, status: 'unavailable'}));
+      } else {
+        // From March 4 onwards in March 2025: each slot is either 3/5 or 4/5 free
+        slotData = timeSlots.map(time => {
+          const slotsFree = Math.random() > 0.5 ? 3 : 4; 
+          return {time, status: 'available', slotsFree};
+        });
+      }
+    } else {
+      // If date is not in March 2025, default all available for demonstration
+      slotData = timeSlots.map(time => ({time, status: 'available', slotsFree: 5}));
+    }
+
+    // Render slots
+    slotData.forEach(slot => {
+      const slotEl = document.createElement('div');
+      slotEl.classList.add('time-slot');
+
+      if (slot.status === 'unavailable') {
+        slotEl.classList.add('unavailable');
+        slotEl.innerHTML = `<img src="img/red_cross.png" alt="No" /> ${slot.time} - Fully Booked`;
+      } else {
+        slotEl.classList.add('available');
+        const freeText = slot.slotsFree !== undefined ? `${slot.slotsFree}/5 Slots Free` : 'Available';
+        slotEl.innerHTML = `<img src="img/green_check.png" alt="Yes" /> ${slot.time} - ${freeText}`;
+        slotEl.addEventListener('click', () => selectSlot(date, slot.time, slotEl));
+      }
+      timeSlotsContainer.appendChild(slotEl);
+    });
+  }
+
+  function selectSlot(date, time, element) {
+    // Clear any previously selected slot
+    document.querySelectorAll('.time-slot.available').forEach(ts => ts.classList.remove('selected'));
+
+    element.classList.add('selected');
+    selectedDateField.value = date;
+    selectedTimeField.value = time;
+  }
+
+  // Load default (March 4) on page load
+  loadTimeSlots(appointmentDateInput.value);
+</script>
+</body>
+</html>

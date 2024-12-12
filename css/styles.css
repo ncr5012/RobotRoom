@@ -1,0 +1,85 @@
+body {
+  margin:0; 
+  font-family: sans-serif; 
+  background: #F2F8FF; 
+  color: #333;
+}
+header {
+  background: #5CD1FF;
+  padding: 10px;
+}
+nav {
+  display:flex; 
+  justify-content:space-between; 
+  align-items:center;
+}
+.logo {
+  display:flex; 
+  align-items:center;
+}
+.logo img {
+  width:40px; 
+  height:40px; 
+  margin-right:10px;
+}
+.nav-links {
+  list-style:none; 
+  display:flex; 
+  gap:15px;
+}
+.nav-links li a {
+  text-decoration:none; 
+  color:#333; 
+  font-weight:bold;
+}
+.nav-links li a.active, .nav-links li a:hover {
+  text-decoration:underline;
+}
+.hero {
+  text-align:center; 
+  padding:20px;
+}
+.hero .cta {
+  background:#FF9B9B; 
+  color:#fff; 
+  padding:10px 20px; 
+  text-decoration:none; 
+  border-radius:5px;
+  font-weight:bold;
+}
+.features {
+  padding:20px;
+}
+table.calendar {
+  width:100%; 
+  border-collapse:collapse; 
+  margin-bottom:20px;
+}
+table.calendar th, table.calendar td {
+  border:1px solid #ccc; 
+  padding:10px; 
+  text-align:center;
+}
+footer {
+  text-align:center; 
+  padding:10px; 
+  background:#5CD1FF;
+  margin-top:20px;
+}
+form {
+  margin-top:20px;
+}
+form label {
+  font-weight:bold;
+}
+button {
+  background:#FF9B9B; 
+  color:#fff; 
+  border:none; 
+  padding:10px; 
+  border-radius:5px; 
+  cursor:pointer;
+}
+button:hover {
+  background:#ff7c7c;
+}
