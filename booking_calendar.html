@@ -251,11 +251,11 @@
 
       if (slot.status === 'unavailable') {
         slotEl.classList.add('unavailable');
-        slotEl.innerHTML = `<img src="img/red_cross.png" alt="No" /> ${slot.time} - Fully Booked`;
+        slotEl.innerHTML = `${slot.time} - Fully Booked`;
       } else {
         slotEl.classList.add('available');
         const freeText = slot.slotsFree !== undefined ? `${slot.slotsFree}/5 Slots Free` : 'Available';
-        slotEl.innerHTML = `<img src="img/green_check.png" alt="Yes" /> ${slot.time} - ${freeText}`;
+        slotEl.innerHTML = `${slot.time} - ${freeText}`;
         slotEl.addEventListener('click', () => selectSlot(date, slot.time, slotEl));
       }
       timeSlotsContainer.appendChild(slotEl);
