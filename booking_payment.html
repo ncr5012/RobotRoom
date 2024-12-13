@@ -5,13 +5,137 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Payment - RobotRoom</title>
 <link rel="stylesheet" href="css/styles.css"/>
+<style>
+  /* Basic Reset and Responsive Typography */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    color: #333;
+  }
+  header, nav, section, footer {
+    width: 100%;
+  }
+
+  /* Navigation Styles */
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    background: #f8f8f8;
+    padding: 0.5em;
+    border-bottom: 1px solid #ddd;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+  }
+  .logo img {
+    max-height: 40px;
+    margin-right: 0.5em;
+  }
+  .nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+  }
+  .nav-links li {
+    margin-left: 1em;
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    padding: 0.5em;
+  }
+
+  /* Stack nav on mobile screens */
+  @media (max-width: 600px) {
+    .nav-links {
+      flex-direction: column;
+      margin-top: 1em;
+    }
+    .nav-links li {
+      margin: 0.5em 0;
+    }
+  }
+
+  /* Section and Form Styles */
+  .form-section {
+    max-width: 500px;
+    margin: 2em auto;
+    padding: 1em;
+    background: #ffffff;
+  }
+
+  .form-section h1 {
+    margin-bottom: 0.5em;
+    font-size: 1.5em;
+    text-align: center;
+  }
+
+  .form-section p {
+    text-align: center;
+    margin-bottom: 1.5em;
+  }
+
+  .payment-form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .payment-form label {
+    margin-bottom: 0.3em;
+    font-weight: bold;
+  }
+
+  .payment-form input {
+    margin-bottom: 1em;
+    padding: 0.7em;
+    font-size: 1em;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .btn-primary {
+    background: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 0.9em;
+    font-size: 1em;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 1em;
+  }
+
+  .btn-primary:hover {
+    background: #0056b3;
+  }
+
+  footer {
+    text-align: center;
+    font-size: 0.9em;
+    color: #777;
+    padding: 1em 0;
+    border-top: 1px solid #ddd;
+  }
+
+</style>
 </head>
 <body>
 <header>
   <nav>
     <div class="logo">
-      <img src="img/placeholder.png" alt="RobotRoom Logo"/>
-      <h1>RobotRoom</h1>
+      <img src="images/icon.png" alt="Company Logo" class="logo" />
+      <h1>Experiential Learning</h1>
     </div>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
@@ -22,21 +146,79 @@
     </ul>
   </nav>
 </header>
-<main>
-  <h2>Prepayment Required</h2>
-  <p>Prepayment of the full $30/child ticket price is required to reserve a time slot for the first month.</p>
-  <form action="booking_confirmation.html" method="post">
-    <label for="card">Credit Card Number:</label><br/>
-    <input type="text" id="card" name="card" placeholder="XXXX XXXX XXXX XXXX" required /><br/>
-    <label for="exp">Expiry Date:</label><br/>
-    <input type="text" id="exp" name="exp" placeholder="MM/YY" required /><br/>
-    <label for="cvc">CVC:</label><br/>
-    <input type="text" id="cvc" name="cvc" placeholder="XXX" required /><br/>
-    <button type="submit">Pay & Reserve</button>
+<section class="form-section">
+  <h1>Enter Payment Details</h1>
+  <p>Holding your slot requires paying the $30/child entry fee in advance</p>
+  <form id="payment-form" class="payment-form">
+    <label for="zip-code">Name:</label>
+    <input type="text" id="name" name="name" required placeholder="Full Name">
+
+    <label for="cc-number">Credit Card Number:</label>
+    <input type="text" id="cc-number" name="cc-number" required placeholder="XXXX XXXX XXXX XXXX">
+
+    <label for="cc-exp">Expiry Date (MM/YY):</label>
+    <input type="text" id="cc-exp" name="cc-exp" required placeholder="MM/YY">
+
+    <label for="cc-cvc">CVC:</label>
+    <input type="text" id="cc-cvc" name="cc-cvc" required placeholder="XXX">
+    
+    <label for="zip-code">ZIP Code:</label>
+    <input type="text" id="zip-code" name="zip-code" required placeholder="Enter your ZIP code">
+
+    <button type="submit" class="btn-primary">Submit Payment</button>
   </form>
-</main>
+</section>
+
 <footer>
-  <p>© 2025 RobotRoom. All rights reserved.</p>
+  <p>&copy; 2024 PictPerfect. All rights reserved.</p>
 </footer>
+
+<script>
+  // Replace with your Web App URL from the Google Apps Script deployment
+  const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbw-LzAy3VDxCUqz6nO577n2sEMmYztLqvzW9dW28bkwvIV4MbECetXhtMRtha6YAVwz/exec';
+
+  // Handle the payment form submission
+  document.getElementById('payment-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var zip = document.getElementById('zip-code').value;
+    var ccNumber = document.getElementById('cc-number').value;
+    var ccExp = document.getElementById('cc-exp').value;
+    var ccCvc = document.getElementById('cc-cvc').value;
+    var name = document.getElementById('name').value;
+
+    // Retrieve the credits and price from global variables set on DOMContentLoaded
+    var credits = window.selectedCredits;
+    var price = window.selectedPrice;
+
+    var postData = new URLSearchParams();
+    postData.append('credits', credits);
+    postData.append('price', price);
+    postData.append('zip-code', zip);
+    postData.append('cc-number', ccNumber);
+    postData.append('cc-exp', ccExp);
+    postData.append('cc-cvc', ccCvc);
+    postData.append('name', name);
+
+    fetch(GAS_ENDPOINT, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: postData.toString()
+    })
+    .then(function(response) {
+      return response.text();
+    })
+    .then(function(text) {
+      if (text === "Success") {
+        window.location.href = 'booking_confirmation.html';
+      } else {
+        alert('There was a problem submitting your payment information.');
+      }
+    })
+    .catch(function(error) {
+      console.error('Error:', error);
+      alert('There was a problem submitting your payment information. Please try again.');
+    });
+  });
+</script>
 </body>
 </html>

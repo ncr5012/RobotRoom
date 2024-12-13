@@ -4,15 +4,148 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>About - RobotRoom</title>
-<link rel="stylesheet" href="css/styles.css"/>
+<style>
+  body {
+    margin: 0; 
+    font-family: Arial, sans-serif; 
+    line-height: 1.5;
+    background: #f9f9f9;
+    color: #333;
+  }
+  header, footer, main {
+    padding: 0 1rem;
+  }
+
+  /* Navbar */
+  .navbar {
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    background: #fff; 
+    border-bottom: 1px solid #ccc;
+  }
+  .logo-container {
+    display: flex; 
+    align-items: center; 
+  }
+  .logo-container h1 {
+    margin: 0; 
+    margin-left: 0.5rem; 
+    font-size: 1.5rem;
+  }
+  .logo-container img {
+    height: 40px; 
+    width: auto;
+  }
+
+  .nav-links {
+    list-style: none; 
+    margin: 0; 
+    padding: 0; 
+    display: flex;
+  }
+  .nav-links li a {
+    display: block; 
+    padding: 1rem; 
+    text-decoration: none; 
+    color: #333;
+    transition: background 0.3s;
+  }
+  .nav-links li a:hover, .nav-links li a.active {
+    background: #eee;
+  }
+
+  /* Hamburger for mobile */
+  .nav-toggle {
+    display: none; 
+    background: none; 
+    border: none; 
+    cursor: pointer; 
+    padding: 1rem;
+  }
+  .hamburger {
+    display: block; 
+    width: 25px; 
+    height: 3px; 
+    margin: 5px 0; 
+    background: #333;
+    transition: 0.4s;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .nav-toggle {
+      display: block;
+    }
+    .nav-links {
+      position: absolute; 
+      top: 70px; 
+      right: 0; 
+      background: #fff; 
+      flex-direction: column;
+      width: 200px; 
+      border: 1px solid #ccc; 
+      display: none;
+    }
+    .nav-links.active {
+      display: flex;
+    }
+    .nav-links li a {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #eee;
+    }
+  }
+
+  main {
+    max-width: 600px; 
+    margin: 2rem auto;
+  }
+
+  figure {
+    margin: 0 0 1rem 0; 
+    text-align: center;
+  }
+  figure img {
+    max-width: 100%; 
+    height: auto; 
+    display: block; 
+    margin: 0 auto;
+  }
+  figure figcaption {
+    font-size: 0.875rem; 
+    color: #666; 
+    margin-top: 0.5rem;
+  }
+
+  footer {
+    margin-top: 2rem; 
+    padding: 1rem 0; 
+    text-align: center; 
+    font-size: 0.875rem; 
+    color: #666;
+  }
+  footer a {
+    color: #666; 
+    text-decoration: none; 
+    margin: 0 0.5rem; 
+  }
+  footer a:hover {
+    text-decoration: underline;
+  }
+</style>
 </head>
 <body>
 <header>
-  <nav>
-    <div class="logo">
-      <img src="img/placeholder.png" alt="RobotRoom Logo"/>
-      <h1>RobotRoom</h1>
+  <nav class="navbar">
+    <div class="logo-container">
+      <img src="images/icon.png" alt="Company Logo" class="logo" />
+      <h1>Experiential Learning</h1>
     </div>
+    <button class="nav-toggle" aria-label="Toggle navigation">
+      <span class="hamburger"></span>
+      <span class="hamburger"></span>
+      <span class="hamburger"></span>
+    </button>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a class="active" href="about.html">About</a></li>
@@ -24,6 +157,11 @@
 </header>
 <main>
   <h2>About RobotRoom</h2>
+  <figure>
+    <!-- Replace the src with your desired image -->
+    <img src="images/nick.jpeg" alt="A child interacting with a RobotRoom robot">
+    <figcaption>Our original testers!</figcaption>
+  </figure>
   <p>RobotRoom is founded by a team of educators, engineers, and parents who envisioned a place where children can engage their minds and bodies simultaneously. Our robots are designed to be friendly companions, educators, and teammates, guiding children through fun activities that promote learning and creativity.</p>
   <p>We believe in nurturing curiosity, encouraging collaboration, and providing an environment where kids can have fun, learn, and grow—all while interacting with cutting-edge technology.</p>
 </main>
@@ -31,5 +169,14 @@
   <p>© 2025 RobotRoom. All rights reserved.</p>
   <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a>
 </footer>
+
+<script>
+  const navToggle = document.querySelector('.nav-toggle');
+  const navLinks = document.querySelector('.nav-links');
+
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
+</script>
 </body>
 </html>

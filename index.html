@@ -3,14 +3,253 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>RobotRoom: Experiential Kids RPG</title>
-<link rel="stylesheet" href="css/styles.css" />
+<title>RobotRoom: Experiential Kids Learning</title>
+<style>
+/* Global reset and box-sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+  color: #333;
+  background: #f9f9f9;
+}
+
+/* Container utility */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header and Navigation */
+header {
+  background: #fff;
+  border-bottom: 1px solid #ccc;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.logo {
+  height: 80px;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+/* Hamburger Menu */
+.nav-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 20px;
+  width: 30px;
+}
+
+.nav-toggle .bar {
+  width: 100%;
+  height: 3px;
+  background: #333;
+}
+
+/* Navigation Links */
+.nav-links {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 1rem 0;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+}
+
+.nav-links li a:hover {
+  background: #eee;
+  border-radius: 5px;
+}
+
+/* Hero Section */
+.hero {
+  background: #e0f7fa;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.hero-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.hero h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  margin-bottom: 1rem;
+}
+
+.hero-media {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.hero-img,
+.hero-video {
+  max-width: 100%;
+  height: auto;
+  margin: 0.5rem 0;
+}
+
+.cta {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: #ff9800;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.cta:hover {
+  background: #e68a00;
+}
+
+/* Features Section */
+.features {
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.features h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.features p {
+  max-width: 600px;
+  margin: 0 auto 1rem;
+}
+
+.features ul {
+  list-style-type: none;
+  padding: 0;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.features ul li {
+  background: #fff;
+  margin-bottom: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 5px;
+}
+
+/* Footer */
+footer {
+  background: #fff;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.875rem;
+  color: #777;
+  border-top: 1px solid #ccc;
+}
+
+footer p {
+  margin-bottom: 0.5rem;
+}
+
+footer a {
+  color: #333;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .nav-links {
+    flex-direction: column;
+    display: none;
+    gap: 0;
+  }
+  
+  .nav-links.nav-open {
+    display: flex;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .hero-img,
+  .hero-video {
+    width: 100%;
+    height: auto;
+  }
+
+  .features ul {
+    text-align: center;
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h2 {
+    font-size: 1.5rem;
+  }
+
+  .features h3 {
+    font-size: 1.25rem;
+  }
+}
+</style>
 </head>
 <body>
 <header>
-  <nav>
-    <div class="container">
-      <h1><img src="images/icon.png" alt="Company Logo" style="height:150px; vertical-align:middle;"> Experiential Learning</h1>
+  <nav class="nav">
+    <div class="container nav-header">
+      <h1>
+        <img src="images/icon.png" alt="Company Logo" class="logo" />
+        Experiential Learning
+      </h1>
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
     </div>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
@@ -23,20 +262,22 @@
 </header>
 <main>
   <section class="hero">
-    <h2>Welcome to RobotRoom</h2>
-    <p>Immerse your kids in a surreal, educational, and utterly fun environment where real robots interact, play, and learn alongside them. Solve puzzles, dance, read, and engage with high-tech AI-driven robot friends in a vibrant play space filled with slides, toys, and surprises.</p>
-    <div class="hero-media">
-      <video controls style="width:300px;height:200px;">
-        <source src="images/kids.mov" type="video/mp4"/>
-        Your browser does not support the video tag.
-      </video>
+    <div class="hero-content">
+      <h2>Welcome to RobotRoom</h2>
+      <p>Immerse your kids in a surreal, educational, and utterly fun environment where real robots interact, play, and learn alongside them. Solve puzzles, dance, read, and engage with high-tech AI-driven robot friends in a vibrant play space filled with slides, toys, and surprises.</p>
+      <div class="hero-media">
+        <video controls class="hero-video">
+          <source src="images/kids.mov" type="video/mp4"/>
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <p>Reservations are required for our grand opening, starting 3 months from now.</p>
+      <a class="cta" href="booking_signin.html">Book Now</a>
     </div>
-    <p>Reservations are required for our grand opening, starting 3 months from now.</p>
-    <a class="cta" href="booking_signin.html">Book Now</a>
   </section>
   <section class="features">
     <h3>What is RobotRoom?</h3>
-    <p>RobotRoom is a next-generation experiential kids RPG environment, where your kids will help robots solve problems. Think of it as an alternative to bounce rooms, kids museums, or gym classes. Here, children not only burn energy but also engage with reading, math, and interactive puzzles—guided by AI-powered robots!</p>
+    <p>RobotRoom is a next-generation experiential kids RPG environment. Think of it as an alternative to bounce rooms, kids museums, or gym classes. Here, children not only burn energy but also engage with reading, math, and interactive puzzles—guided by AI-powered robots!</p>
     <ul>
       <li>Real, physical robots with sophisticated AI</li>
       <li>Fun environment: slides, toys, and fun activities</li>
@@ -47,7 +288,12 @@
 </main>
 <footer>
   <p>© 2025 RobotRoom. All rights reserved.</p>
-  <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a>
+  <p><a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
 </footer>
+<script>
+document.querySelector('.nav-toggle').addEventListener('click', function(){
+  document.querySelector('.nav-links').classList.toggle('nav-open');
+});
+</script>
 </body>
 </html>
